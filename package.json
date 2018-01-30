@@ -1,0 +1,24 @@
+{
+  "name": "why-not-bot",
+  "version": "1.0.0",
+  "description": "chatbot for funsies",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "why-not-bot"
+  },
+  "keywords": [
+    "sample"
+  ],
+  "author": "Anna Waltrip",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "botbuilder": "^3.14.0",
+    "nodemon": "^1.14.11",
+    "restify": "^6.3.4"
+  }
+}

@@ -38,37 +38,42 @@ bot.on('conversationUpdate', function (message) {
     });
 });
 
-
+// --------------------------------
 // Recognizers / keyword triggers
+// --------------------------------
 
-bot.recognizer({
+var customRecognizer = {
     recognize: function (context, done) {
         var intent = { score: 0.0 };
         if (context.message.text) {
-            switch (context.message.text.toLowerCase()) {
-                case 'help':
-                case 'help.':
-                case 'help!':
-                    intent = { score: 1.0, intent: 'Help' };
-                    break;
-                case 'goodbye':
-                case 'goodbye!':
-                case 'bye':
-                case 'bye!':
-                case 'quit':
-                case 'stop':
-                    intent = { score: 1.0, intent: 'Goodbye' };
-                    break;
-            }
+            var txt = context.message.text.toLowerCase();
+            var hello = txt.match(/^hey$|^hello|^hi$|^hi bot$/i);
+            var help = txt.match(/^help/i);
+            var bye = txt.match(/^bye|^goodbye|^stop$|^quit$/i);
+            var game = txt.match(/^game|play a game/i);
+
+            if (hello) intent = { score: 1.0, intent: 'Hello' };
+            if (help) intent = { score: 1.0, intent: 'Help' };
+            else if (bye) intent = { score: 1.0, intent: 'Goodbye' };
+            else if (game) intent = { score: 1.0, intent: 'Game' };
         }
         done(null, intent);
     }
-  });
+};
+bot.recognizer(customRecognizer);
 
 bot.dialog('helpDialog', function (session) {
     session.endDialog("I see you're asking for help. I'm a simple bot. " +
                         "For the most part, I just repeat back anything you say.");
 }).triggerAction({ matches: 'Help' });
+
+bot.dialog('helloDialog', function (session) {
+    session.endDialog("Hi user!");
+}).triggerAction({ matches: 'Hello' });
+
+bot.dialog('gameDialog', function (session) {
+    session.endDialog("I'm coming up with a game, but it's not finished yet. Ask me again another time!");
+}).triggerAction({ matches: 'Game' });
 
 bot.endConversationAction('goodbyeAction', "Ok, See you later.", { matches: 'Goodbye' });
   

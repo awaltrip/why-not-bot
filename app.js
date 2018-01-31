@@ -46,11 +46,11 @@ var customRecognizer = {
     recognize: function (context, done) {
         var intent = { score: 0.0 };
         if (context.message.text) {
-            var txt = context.message.text.toLowerCase();
-            var hello = txt.match(/^hey$|^hello|^hi$|^hi bot$/i);
-            var help = txt.match(/^help/i);
-            var bye = txt.match(/^bye|^goodbye|^stop$|^quit$/i);
-            var game = txt.match(/^game|play a game/i);
+            var txt = context.message.text.toLowerCase(),
+                hello = txt.match(/^hey$|^hello|^hi$|^hi bot$/i),
+                help = txt.match(/^help/i),
+                bye = txt.match(/^bye|^goodbye|^stop$|^quit$/i),
+                game = txt.match(/^game|play a game/i);
 
             if (hello) intent = { score: 1.0, intent: 'Hello' };
             else if (help) intent = { score: 1.0, intent: 'Help' };

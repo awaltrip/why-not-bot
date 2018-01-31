@@ -53,7 +53,7 @@ var customRecognizer = {
             var game = txt.match(/^game|play a game/i);
 
             if (hello) intent = { score: 1.0, intent: 'Hello' };
-            if (help) intent = { score: 1.0, intent: 'Help' };
+            else if (help) intent = { score: 1.0, intent: 'Help' };
             else if (bye) intent = { score: 1.0, intent: 'Goodbye' };
             else if (game) intent = { score: 1.0, intent: 'Game' };
         }
